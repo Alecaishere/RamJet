@@ -1,0 +1,30 @@
+[Unit]
+Description=ramjet - process priority daemon
+Documentation=https://github.com/themadprofessor/rice
+After=multi-user.target
+Wants=multi-user.target
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/default/ramjet
+ExecStart=/usr/local/bin/rice -d ${RICE_CONFIG_DIR} ${RICE_OPTS}
+Restart=on-failure
+RestartSec=5
+
+# Security hardening
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+NoNewPrivileges=false
+ReadWritePaths=/sys/fs/cgroup
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=rice
+
+# Resource limits
+LimitNICE=true
+
+[Install]
+WantedBy=multi-user.target
