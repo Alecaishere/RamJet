@@ -44,6 +44,6 @@ sudo mv ramjet /usr/local/bin/
 
 Move the .service file to /etc/systemd/system/ and enable it with:
 ```bash
-sudo systemctl enable ramjet.service
+sudo systemctl enable --now ramjet.service
 ```
 # Remember to disable Ananicy/Ananicy-cpp or Rice to avoid stability problems
