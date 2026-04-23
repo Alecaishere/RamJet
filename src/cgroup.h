@@ -1,14 +1,13 @@
 /*
- * rice - Ananicy clone in C
- * Copyright (c) 2024 - Ported from Rust by themadprofessor/rice
- * Licensed under MIT
+ * RamJet - Rice clone in C
+ * Copyright (c) 2026 - Ported from Rust by Alecaishere/CuerdOS Dev. Team
  *
  * Cgroup v1 management: parse cgroup definitions from config and apply
  * them to processes by writing to the cgroup filesystem.
  */
 
-#ifndef RICE_CGROUP_H
-#define RICE_CGROUP_H
+#ifndef RAMJET_CGROUP_H
+#define RAMJET_CGROUP_H
 
 #include <sys/types.h>
 
@@ -52,4 +51,4 @@ int cgroup_apply(const CgroupDef *cg, pid_t pid);
    Returns 0 on success, -1 on fatal error. */
 int build_cgroups(CgroupMap *map);
 
-#endif /* RICE_CGROUP_H */
+#endif /* RAMJET_CGROUP_H */

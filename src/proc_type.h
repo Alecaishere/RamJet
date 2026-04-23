@@ -1,14 +1,14 @@
 /*
- * rice - Ananicy clone in C
- * Copyright (c) 2024 - Ported from Rust by themadprofessor/rice
- * Licensed under MIT
+ * RamJet - Rice clone in C
+ * Copyright (c) 2026 - Ported from Rust by Alecaishere/CuerdOS Dev. Team
+ *
  *
  * Process type definitions: a named type with optional nice, ioclass,
  * ionice, cgroup, and oom_score_adj values.
  */
 
-#ifndef RICE_PROC_TYPE_H
-#define RICE_PROC_TYPE_H
+#ifndef RAMJET_PROC_TYPE_H
+#define RAMJET_PROC_TYPE_H
 
 #include "class.h"
 #include <sys/types.h>
@@ -54,4 +54,4 @@ const ProcType *proc_type_map_get(const ProcTypeMap *map, const char *name);
    Returns 0 on success, -1 on fatal error. */
 int build_types(ProcTypeMap *map);
 
-#endif /* RICE_PROC_TYPE_H */
+#endif /* RAMJET_PROC_TYPE_H */

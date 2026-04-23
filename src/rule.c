@@ -1,7 +1,7 @@
 /*
- * rice - Ananicy clone in C
- * Copyright (c) 2024 - Ported from Rust by themadprofessor/rice
- * Licensed under MIT
+ * RamJet - Rice clone in C
+ * Copyright (c) 2026 - Ported from Rust by Alecaishere/CuerdOS Dev. Team
+ *
  *
  * Rule parsing, map, and application implementation.
  */
@@ -52,7 +52,7 @@ void rule_map_insert(RuleMap *map, const Rule *r) {
 
     RuleEntry *entry = malloc(sizeof(RuleEntry));
     if (!entry) {
-        fprintf(stderr, "[rice] error: out of memory inserting rule\n");
+        fprintf(stderr, "[ramjet] error: out of memory inserting rule\n");
         return;
     }
     entry->rule = *r;
@@ -132,17 +132,17 @@ static int apply_nice(int nice_val, pid_t pid) {
     if (setpriority(PRIO_PROCESS, (id_t)pid, nice_val) != 0) {
         switch (errno) {
             case ESRCH:
-                fprintf(stderr, "[rice] error: process [%d] not found\n", pid);
+                fprintf(stderr, "[ramjet] error: process [%d] not found\n", pid);
                 return -1;
             case EACCES:
-                fprintf(stderr, "[rice] error: permission denied or nice value "
+                fprintf(stderr, "[ramjet] error: permission denied or nice value "
                         "larger than rlimit for pid %d\n", pid);
                 return -1;
             case EPERM:
-                fprintf(stderr, "[rice] error: permission denied for pid %d\n", pid);
+                fprintf(stderr, "[ramjet] error: permission denied for pid %d\n", pid);
                 return -1;
             default:
-                fprintf(stderr, "[rice] error: setpriority failed for pid %d: %s\n",
+                fprintf(stderr, "[ramjet] error: setpriority failed for pid %d: %s\n",
                         pid, strerror(errno));
                 return -1;
         }
@@ -168,7 +168,7 @@ static int apply_ionice(IoClass ioclass, int ionice_val, pid_t pid) {
         snprintf(cmd, sizeof(cmd), "ionice -c %s -n %s -p %s", class_str, nice_str, pid_str);
         int ret = system(cmd);
         if (ret != 0) {
-            fprintf(stderr, "[rice] error: ionice command failed for pid %d\n", pid);
+            fprintf(stderr, "[ramjet] error: ionice command failed for pid %d\n", pid);
             return -1;
         }
     } else {
@@ -176,7 +176,7 @@ static int apply_ionice(IoClass ioclass, int ionice_val, pid_t pid) {
         snprintf(cmd, sizeof(cmd), "ionice -c %s -p %s", class_str, pid_str);
         int ret = system(cmd);
         if (ret != 0) {
-            fprintf(stderr, "[rice] error: ionice command failed for pid %d\n", pid);
+            fprintf(stderr, "[ramjet] error: ionice command failed for pid %d\n", pid);
             return -1;
         }
     }
@@ -221,7 +221,7 @@ static int parse_rule_line(const char *json_line, void *user_data) {
 
     cJSON *root = cJSON_Parse(json_line);
     if (!root) {
-        fprintf(stderr, "[rice] warn: failed to parse rule JSON: %s\n",
+        fprintf(stderr, "[ramjet] warn: failed to parse rule JSON: %s\n",
                 cJSON_GetErrorPtr() ? cJSON_GetErrorPtr() : "unknown error");
         return 0;
     }
@@ -247,7 +247,7 @@ static int parse_rule_line(const char *json_line, void *user_data) {
     if (jnice && cJSON_IsNumber(jnice)) {
         int nice = jnice->valueint;
         if (nice > 20 || nice < -19) {
-            fprintf(stderr, "[rice] warn: invalid nice value %d for rule %s\n",
+            fprintf(stderr, "[ramjet] warn: invalid nice value %d for rule %s\n",
                     nice, r.name);
             cJSON_Delete(root);
             return 0;
@@ -264,7 +264,7 @@ static int parse_rule_line(const char *json_line, void *user_data) {
         if (io_class_from_string(jioclass->valuestring, &r.ioclass) == 0) {
             r.has_ioclass = 1;
         } else {
-            fprintf(stderr, "[rice] warn: unknown ioclass '%s' in rule '%s'\n",
+            fprintf(stderr, "[ramjet] warn: unknown ioclass '%s' in rule '%s'\n",
                     jioclass->valuestring, r.name);
         }
     }
@@ -274,7 +274,7 @@ static int parse_rule_line(const char *json_line, void *user_data) {
     if (jionice && cJSON_IsNumber(jionice)) {
         int ion = jionice->valueint;
         if (ion > 7) {
-            fprintf(stderr, "[rice] warn: invalid ionice value %d for rule %s\n",
+            fprintf(stderr, "[ramjet] warn: invalid ionice value %d for rule %s\n",
                     ion, r.name);
             cJSON_Delete(root);
             return 0;

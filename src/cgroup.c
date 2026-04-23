@@ -1,7 +1,6 @@
 /*
- * rice - Ananicy clone in C
- * Copyright (c) 2024 - Ported from Rust by themadprofessor/rice
- * Licensed under MIT
+ * RamJet - Rice clone in C
+ * Copyright (c) 2026 - Ported from Rust by Alecaishere/CuerdOS Dev. Team
  *
  * Cgroup v1 management implementation.
  *
@@ -53,7 +52,7 @@ void cgroup_map_free(CgroupMap *map) {
             char path[512];
             snprintf(path, sizeof(path), CGROUP_CPU_BASE "/%s", e->def.name);
             if (rmdir(path) != 0) {
-                fprintf(stderr, "[rice] error: failed to delete cgroup %s: %s\n",
+                fprintf(stderr, "[ramjet] error: failed to delete cgroup %s: %s\n",
                         e->def.name, strerror(errno));
             }
 
@@ -68,11 +67,11 @@ void cgroup_map_free(CgroupMap *map) {
 static int write_file(const char *path, const char *value) {
     FILE *fp = fopen(path, "w");
     if (!fp) {
-        fprintf(stderr, "[rice] error: failed to open %s: %s\n", path, strerror(errno));
+        fprintf(stderr, "[ramjet] error: failed to open %s: %s\n", path, strerror(errno));
         return -1;
     }
     if (fputs(value, fp) == EOF) {
-        fprintf(stderr, "[rice] error: failed to write to %s: %s\n", path, strerror(errno));
+        fprintf(stderr, "[ramjet] error: failed to write to %s: %s\n", path, strerror(errno));
         fclose(fp);
         return -1;
     }
@@ -88,7 +87,7 @@ static int create_cgroup_fs(const CgroupDef *def) {
     /* Create cgroup directory */
     snprintf(path, sizeof(path), CGROUP_CPU_BASE "/%s", def->name);
     if (mkdir(path, 0755) != 0 && errno != EEXIST) {
-        fprintf(stderr, "[rice] error: failed to create cgroup dir %s: %s\n",
+        fprintf(stderr, "[ramjet] error: failed to create cgroup dir %s: %s\n",
                 path, strerror(errno));
         return -1;
     }
@@ -118,7 +117,7 @@ static int create_cgroup_fs(const CgroupDef *def) {
 int cgroup_map_insert(CgroupMap *map, const CgroupDef *def) {
     /* Create the cgroup on the filesystem first */
     if (create_cgroup_fs(def) != 0) {
-        fprintf(stderr, "[rice] warn: failed to create cgroup %s\n", def->name);
+        fprintf(stderr, "[ramjet] warn: failed to create cgroup %s\n", def->name);
         return -1;
     }
 
@@ -126,7 +125,7 @@ int cgroup_map_insert(CgroupMap *map, const CgroupDef *def) {
 
     CgroupEntry *entry = malloc(sizeof(CgroupEntry));
     if (!entry) {
-        fprintf(stderr, "[rice] error: out of memory inserting cgroup\n");
+        fprintf(stderr, "[ramjet] error: out of memory inserting cgroup\n");
         return -1;
     }
     entry->def = *def;
@@ -177,7 +176,7 @@ static int parse_cgroup_line(const char *json_line, void *user_data) {
 
     cJSON *root = cJSON_Parse(json_line);
     if (!root) {
-        fprintf(stderr, "[rice] warn: failed to parse cgroup JSON: %s\n",
+        fprintf(stderr, "[ramjet] warn: failed to parse cgroup JSON: %s\n",
                 cJSON_GetErrorPtr() ? cJSON_GetErrorPtr() : "unknown error");
         return 0;
     }
@@ -201,7 +200,7 @@ static int parse_cgroup_line(const char *json_line, void *user_data) {
 
     int quota = jquota->valueint;
     if (quota > 100 || quota < 1) {
-        fprintf(stderr, "[rice] warn: invalid CPUQuota %d for cgroup %s\n",
+        fprintf(stderr, "[ramjet] warn: invalid CPUQuota %d for cgroup %s\n",
                 quota, jname->valuestring);
         cJSON_Delete(root);
         return 0;

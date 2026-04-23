@@ -1,7 +1,7 @@
 /*
- * rice - Ananicy clone in C
- * Copyright (c) 2024 - Ported from Rust by themadprofessor/rice
- * Licensed under MIT
+ * RamJet - Rice clone in C
+ * Copyright (c) 2026 - Ported from Rust by Alecaishere/CuerdOS Dev. Team
+ *
  *
  * Configuration file parsing implementation.
  */
@@ -86,7 +86,7 @@ static int nftw_callback(const char *fpath, const struct stat *sb,
     /* Open and parse the file */
     FILE *fp = fopen(fpath, "r");
     if (!fp) {
-        fprintf(stderr, "[rice] warn: failed to open %s: %s\n",
+        fprintf(stderr, "[ramjet] warn: failed to open %s: %s\n",
                 fpath, strerror(errno));
         return 0; /* Non-fatal: continue walking */
     }
@@ -95,7 +95,7 @@ static int nftw_callback(const char *fpath, const struct stat *sb,
     fclose(fp);
 
     if (ret != 0) {
-        fprintf(stderr, "[rice] warn: error parsing %s\n", fpath);
+        fprintf(stderr, "[ramjet] warn: error parsing %s\n", fpath);
     }
 
     return 0;
@@ -110,7 +110,7 @@ int walk_config_dir(const char *root_dir, const char *ext,
     /* Use nftw to walk the directory tree, up to 16 open fds */
     int ret = nftw(root_dir, nftw_callback, 16, FTW_PHYS);
     if (ret != 0 && errno != 0) {
-        fprintf(stderr, "[rice] warn: failed to walk %s: %s\n",
+        fprintf(stderr, "[ramjet] warn: failed to walk %s: %s\n",
                 root_dir, strerror(errno));
         return -1;
     }

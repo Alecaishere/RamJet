@@ -1,14 +1,14 @@
 /*
- * rice - Ananicy clone in C
- * Copyright (c) 2024 - Ported from Rust by themadprofessor/rice
- * Licensed under MIT
+ * RamJet - Rice clone in C
+ * Copyright (c) 2026 - Ported from Rust by Alecaishere/CuerdOS Dev. Team
+ *
  *
  * Configuration file parsing: walks /etc/ananicy.d for .rules, .types, .cgroups
  * files and parses each line as JSON, invoking a callback for each parsed object.
  */
 
-#ifndef RICE_PARSE_H
-#define RICE_PARSE_H
+#ifndef RAMJET_PARSE_H
+#define RAMJET_PARSE_H
 
 #include <stdio.h>
 
@@ -31,4 +31,4 @@ int parse_file(FILE *fp, parse_line_cb cb, void *user_data);
 int walk_config_dir(const char *root_dir, const char *ext,
                     parse_line_cb cb, void *user_data);
 
-#endif /* RICE_PARSE_H */
+#endif /* RAMJET_PARSE_H */

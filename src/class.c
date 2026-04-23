@@ -1,11 +1,7 @@
 /*
- * rice - Ananicy clone in C
- * Copyright (c) 2024 - Ported from Rust by themadprofessor/rice
- * Licensed under MIT
- *
- * IoClass enumeration implementation.
+ * RamJet - Rice clone in C
+ * Copyright (c) 2026 - Ported from Rust by Alecaishere/CuerdOS Dev. Team
  */
-
 #include "class.h"
 #include <string.h>
 #include <strings.h>

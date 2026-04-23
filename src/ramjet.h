@@ -1,7 +1,7 @@
 /*
  * RamJet - Rice clone in C
- * Copyright (c) 2024 - Ported from Rust by Alecaishere/CuerdOS Dev. Team
- * Licensed under MIT
+ * Copyright (c) 2026 - Ported from Rust by Alecaishere/CuerdOS Dev. Team
+ *
  *
  * Core RamJet library: process iteration and rule application.
  */

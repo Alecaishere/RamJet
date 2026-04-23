@@ -1,7 +1,7 @@
 /*
- * rice - Ananicy clone in C
- * Copyright (c) 2024 - Ported from Rust by themadprofessor/rice
- * Licensed under MIT
+ * RamJet - Rice clone in C
+ * Copyright (c) 2026 - Ported from Rust by Alecaishere/CuerdOS Dev. Team
+ *
  *
  * Process type parsing and map implementation.
  */
@@ -48,7 +48,7 @@ void proc_type_map_insert(ProcTypeMap *map, const ProcType *pt) {
 
     ProcTypeEntry *entry = malloc(sizeof(ProcTypeEntry));
     if (!entry) {
-        fprintf(stderr, "[rice] error: out of memory inserting proc type\n");
+        fprintf(stderr, "[ramjet] error: out of memory inserting proc type\n");
         return;
     }
     entry->type = *pt;
@@ -85,7 +85,7 @@ static int parse_type_line(const char *json_line, void *user_data) {
 
     cJSON *root = cJSON_Parse(json_line);
     if (!root) {
-        fprintf(stderr, "[rice] warn: failed to parse type JSON: %s\n",
+        fprintf(stderr, "[ramjet] warn: failed to parse type JSON: %s\n",
                 cJSON_GetErrorPtr() ? cJSON_GetErrorPtr() : "unknown error");
         return 0; /* Non-fatal */
     }
@@ -112,7 +112,7 @@ static int parse_type_line(const char *json_line, void *user_data) {
         if (io_class_from_string(jioclass->valuestring, &pt.ioclass) == 0) {
             pt.has_ioclass = 1;
         } else {
-            fprintf(stderr, "[rice] warn: unknown ioclass '%s' in type '%s'\n",
+            fprintf(stderr, "[ramjet] warn: unknown ioclass '%s' in type '%s'\n",
                     jioclass->valuestring, pt.name);
         }
     }

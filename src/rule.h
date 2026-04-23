@@ -1,14 +1,14 @@
 /*
- * rice - Ananicy clone in C
- * Copyright (c) 2024 - Ported from Rust by themadprofessor/rice
- * Licensed under MIT
+ * RamJet - Rice clone in C
+ * Copyright (c) 2026 - Ported from Rust by Alecaishere/CuerdOS Dev. Team
+ *
  *
  * Rule definitions: a rule maps a process name to optional nice, ioclass,
  * ionice, and cgroup values, with optional inheritance from a ProcType.
  */
 
-#ifndef RICE_RULE_H
-#define RICE_RULE_H
+#ifndef RAMJET_RULE_H
+#define RAMJET_RULE_H
 
 #include "class.h"
 #include "proc_type.h"
@@ -76,4 +76,4 @@ int rule_effective_ionice(const Rule *r, const ProcTypeMap *types);
    Returns 0 on success, -1 on error. */
 int rule_apply(const Rule *r, const ProcTypeMap *types, pid_t pid);
 
-#endif /* RICE_RULE_H */
+#endif /* RAMJET_RULE_H */

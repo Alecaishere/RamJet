@@ -1,13 +1,13 @@
 /*
- * rice - Ananicy clone in C
- * Copyright (c) 2024 - Ported from Rust by themadprofessor/rice
- * Licensed under MIT
+ * RamJet - Rice clone in C
+ * Copyright (c) 2026 - Ported from Rust by Alecaishere/CuerdOS Dev. Team
+ *
  *
  * IoClass enumeration for I/O scheduling classes.
  */
 
-#ifndef RICE_CLASS_H
-#define RICE_CLASS_H
+#ifndef RAMJET_CLASS_H
+#define RAMJET_CLASS_H
 
 typedef enum {
     IO_CLASS_IDLE = 0,
@@ -25,4 +25,4 @@ int io_class_to_num(IoClass c);
 /* Convert IoClass to a human-readable string */
 const char *io_class_to_string(IoClass c);
 
-#endif /* RICE_CLASS_H */
+#endif /* RAMJET_CLASS_H */
