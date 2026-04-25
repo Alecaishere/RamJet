@@ -124,7 +124,7 @@ int iterate_procs(proc_callback cb, void *user_data) {
     closedir(proc_dir);
 
     if (!found_any) {
-        fprintf(stderr, "[rice] error: no valid processes found\n");
+        fprintf(stderr, "[ramjet] error: no valid processes found\n");
         return -1;
     }
 

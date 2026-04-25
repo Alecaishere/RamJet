@@ -1,6 +1,7 @@
-# rice - Ananicy clone in C
-# Copyright (c) 2024 - Ported from Rust by themadprofessor/rice
-# Licensed under MIT
+#
+# RamJet - Rice clone in C
+# Copyright (c) 2026 - Ported from Rust by Alecaishere/CuerdOS Dev. Team
+#
 
 CC      ?= gcc
 CFLAGS  ?= -Wall -Wextra -Wpedantic -std=c11 -O2
