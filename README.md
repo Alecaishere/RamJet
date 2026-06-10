@@ -3,7 +3,7 @@ Rice (Ananicy clone built in Rust) ported to C
 
 This is another auto nice daemon but with the speed of C execution and compatibility with Ananicy rules.
 
-## How to install on systemd distros:
+## How to install on different distros:
 
 ### 1. Install the required dependencies:
 # Debian / Ubuntu
